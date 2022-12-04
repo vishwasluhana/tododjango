@@ -19,7 +19,6 @@ def delete_todo(request, pk):
     if request.method == 'POST':
         todo.delete()
         return redirect('home')
-    return render(request, 'delete.html', {'obj': todo})
 
 
 def edit_todo(request, pk):
