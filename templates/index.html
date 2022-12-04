@@ -64,9 +64,10 @@
                                             <a href="{% url 'edit-todo' todo.id%}">
                                                 <button type="submit" class="btn btn-secondary ms-1">Edit</button>
                                             </a>
-                                            <a href="{% url 'delete-todo' todo.id%}">
-                                                <button type="submit" class="btn btn-danger">Delete</button>
-                                            </a>
+                                            <form action="{% url 'delete-todo' todo.id%}" method="post">
+                                                {% csrf_token %}
+                                                <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete \'{{todo.title | capfirst}}');">Delete</button>
+                                            </form>
                                         </td>
                                     </tr>
                                     {% endfor %}
