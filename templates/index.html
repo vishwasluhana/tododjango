@@ -45,7 +45,7 @@
                                 </div>
 
                                 <div class="col-12">
-                                    <button type="submit" class="btn btn-primary">Save</button>
+                                    <button type="submit" class="btn btn-success">Save</button>
                                 </div>
                             </form>
 
@@ -65,11 +65,42 @@
                                         <td>{{ todo.title | capfirst }}</td>
                                         <td>In progress</td>
                                         <td>
-                                            <a href="{% url 'edit-todo' todo.id%}">
-                                                <button type="button" class="btn btn-secondary ms-1">Edit</button>
-                                            </a>
+                                            <button type="button" class="btn btn-primary ms-1" data-toggle="modal"
+                                                data-target="#editModal{{todo.id}}"
+                                                data-todo="{{todo.title}}">Edit</button>
                                             <button type="button" class="btn btn-danger" data-toggle="modal"
                                                 data-target="#deleteModal{{todo.id}}">Delete</button>
+
+                                            <!-- Edit Modal -->
+                                            <div class="modal fade" id="editModal{{todo.id}}" tabindex="-1"
+                                                role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="editModalLabel">Edit Todo</h5>
+                                                            <button type="button" class="close" data-dismiss="modal"
+                                                                aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <form action="{% url 'edit-todo' todo.id%}" method="post">
+                                                            {% csrf_token %}
+                                                            <div class="modal-body">
+                                                                <div class="form-group">
+                                                                    <input type="text" name="title"
+                                                                        value="{{todo.title}}" class="form-control">
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-secondary"
+                                                                    data-dismiss="modal">Close</button>
+                                                                <button type="submit" class="btn btn-primary">Save
+                                                                    changes</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                             <!-- Delete Modal -->
                                             <div class="modal fade" id="deleteModal{{todo.id}}" tabindex="-1"
@@ -99,6 +130,8 @@
                                                     </div>
                                                 </div>
                                             </div>
+
+
                                         </td>
                                     </tr>
                                     {% endfor %}
