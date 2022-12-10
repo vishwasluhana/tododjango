@@ -30,7 +30,7 @@
             <div class="row d-flex justify-content-center align-items-center h-100">
                 <div class="col col-lg-9 col-xl-7">
                     <div class="card rounded-3">
-                        <div class="card-body p-4">
+                        <div class="card-body pb-3">
 
                             <h4 class="text-center my-3 pb-3">Todo Django</h4>
 
@@ -62,10 +62,23 @@
                                     {% for todo in todos %}
                                     <tr>
                                         <th scope="row">{{forloop.counter}}</th>
+                                        {% if todo.completed %}
+                                        <td><s>{{ todo.title | capfirst }}</s></td>
+                                        <td>Completed</td>
+                                        {% else %}
                                         <td>{{ todo.title | capfirst }}</td>
                                         <td>In progress</td>
+                                        {% endif %}
                                         <td>
-                                            <button type="button" class="btn btn-primary ms-1" data-toggle="modal"
+                                            {% if todo.completed %}
+                                            <button type="button" class="btn btn-secondary"
+                                                disabled>Complete</button>
+                                            {% else %}
+                                            <a href="{% url 'complete-todo' todo.id %}">
+                                                <button type="button" class="btn btn-success">Complete</button>
+                                            </a>
+                                            {% endif %}
+                                            <button type="button" class="btn btn-primary" data-toggle="modal"
                                                 data-target="#editModal{{todo.id}}"
                                                 data-todo="{{todo.title}}">Edit</button>
                                             <button type="button" class="btn btn-danger" data-toggle="modal"

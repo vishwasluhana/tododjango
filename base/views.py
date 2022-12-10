@@ -30,3 +30,10 @@ def edit_todo(request, pk):
         todo.save()
         return redirect('home')
     return render(request, 'edit.html', {'obj': todo})
+
+
+def complete_todo(request, pk):
+    todo = Todo.objects.get(id=pk)
+    todo.completed = True
+    todo.save()
+    return redirect('home')
