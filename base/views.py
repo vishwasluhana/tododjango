@@ -26,10 +26,12 @@ def edit_todo(request, pk):
 
     if request.method == 'POST':
         title = request.POST.get('title')
+        completed = request.POST.get('completed')
         todo.title = title
+        todo.completed = bool(completed)
         todo.save()
-        return redirect('home')
-    return render(request, 'edit.html', {'obj': todo})
+    
+    return redirect('home')
 
 
 def complete_todo(request, pk):
