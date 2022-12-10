@@ -37,14 +37,14 @@
                             <form action="{% url 'add-todo' %}" method="post"
                                 class="row row-cols-lg-auto g-3 justify-content-center align-items-center mb-4 pb-2">
                                 {% csrf_token %}
-                                <div class="col-12">
+                                <div class="col-8">
                                     <div class="form-outline">
                                         <input type="text" id="title" name="title" class="form-control" />
                                         <label class="form-label" for="title">Enter a task here</label>
                                     </div>
                                 </div>
 
-                                <div class="col-12">
+                                <div class="col-2">
                                     <button type="submit" class="btn btn-success btn-sm">Save</button>
                                 </div>
                             </form>
