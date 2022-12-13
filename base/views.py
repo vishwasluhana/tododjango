@@ -6,18 +6,19 @@ from .models import Todo
 
 @login_required(login_url='login')
 def home(request):
-    todos = Todo.objects.all()
-    return render(request, 'index.html', {'todos': todos})
+    todos = request.user.todo_set.all()
+    user = request.user
+    return render(request, 'index.html', {'todos': todos, 'user': user})
 
 
 def add_todo(request):
     title = request.POST.get('title')
-    Todo.objects.create(title=title)
+    Todo.objects.create(title=title, user=request.user)
     return redirect('home')
 
 
 def delete_todo(request, pk):
-    todo = Todo.objects.get(id=pk)
+    todo = Todo.objects.get(id=pk, user=request.user)
 
     if request.method == 'POST':
         todo.delete()
@@ -25,7 +26,7 @@ def delete_todo(request, pk):
 
 
 def edit_todo(request, pk):
-    todo = Todo.objects.get(id=pk)
+    todo = Todo.objects.get(id=pk, user=request.user)
 
     if request.method == 'POST':
         title = request.POST.get('title')
@@ -38,7 +39,7 @@ def edit_todo(request, pk):
 
 
 def complete_todo(request, pk):
-    todo = Todo.objects.get(id=pk)
+    todo = Todo.objects.get(id=pk, user=request.user)
     todo.completed = True
     todo.save()
     return redirect('home')
