@@ -1,4 +1,2 @@
 venv
 .DS_Store
-db.sqlite3
-templates/delete.html
