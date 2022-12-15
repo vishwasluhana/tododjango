@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
 from .models import Todo
 
 
@@ -54,10 +56,23 @@ def login_user(request):
             login(request, user)
             return redirect('home')
         else:
-            return render(request, 'login.html', {'error': 'Invalid username or password'})
+            messages.error(request, 'Invalid username or password')
+            return render(request, 'login.html')
     return render(request, 'login.html')
 
 
 def logout_user(request):
     logout(request)
     return redirect('login')
+
+
+def register(request):
+    if request.method == 'POST':
+        f = UserCreationForm(request.POST)
+        if f.is_valid():
+            f.save()
+            messages.success(request, 'Account created successfully')
+            return redirect('login')
+    else:
+        f = UserCreationForm()
+    return render(request, 'register.html', {'form': f})

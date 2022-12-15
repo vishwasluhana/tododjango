@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Register</title>
     <link rel="icon" type="image/x-icon" href="https://img.icons8.com/ios-filled/50/null/todo-list.png">
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Rubik:400,700'>
     <link rel="stylesheet" href="{% static 'css/login-style.css' %}">
@@ -18,34 +18,23 @@
 
 <body style="background-color: #063970;">
     <div class="login-form">
-        {% if messages %}
-            {% for message in messages %}
-                {% if message.level_tag == 'error'%}
-                    <div class="alert alert-danger" role="alert">
-                        {{ message }}
-                    </div>
-                {% elif message.level_tag == 'success' %}
-                    <div class="alert alert-success" role="alert">
-                        {{ message }}
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
-        <h1>Login</h1>
-        <form action="{% url 'login' %}" method="POST">
+        <h1>Register</h1>
+        <form action="{% url 'register' %}" method="POST">
             {% csrf_token %}
             <div class="content">
                 <div class="input-field">
                     <input type="text" placeholder="Username" name="username">
                 </div>
                 <div class="input-field">
-                    <input type="password" placeholder="Password" name="password">
+                    <input type="password" placeholder="Password" name="password1">
                 </div>
-                <a href="#" class="link">Forgot Your Password?</a>
+                <div class="input-field">
+                    <input type="password" placeholder="Confirm Password" name="password2">
+                </div>
             </div>
             <div class="action">
-                <button>Register</button>
-                <button type="submit">Login</button>
+                <button type="submit">Register</button>
+                <button>Login</button>
             </div>
         </form>
     </div>
