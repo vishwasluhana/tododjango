@@ -41,10 +41,11 @@
                 <div class="input-field">
                     <input type="password" placeholder="Password" name="password">
                 </div>
-                <a href="#" class="link">Forgot Your Password?</a>
+                <span>Don't have account yet? | 
+                    <a href="{% url 'register' %}" class="link">Register Now</a>
+                </span>
             </div>
             <div class="action">
-                <button>Register</button>
                 <button type="submit">Login</button>
             </div>
         </form>

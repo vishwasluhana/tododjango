@@ -31,10 +31,12 @@
                 <div class="input-field">
                     <input type="password" placeholder="Confirm Password" name="password2">
                 </div>
+                <span> Already have an account? | 
+                    <a href="{% url 'login' %}" class="link">Login</a>
+                </span>
             </div>
             <div class="action">
                 <button type="submit">Register</button>
-                <button>Login</button>
             </div>
         </form>
     </div>
